@@ -53,7 +53,7 @@ console.log(pdfData)
         </div>
         <span>{mergeStatus&&mergeStatus}</span>
 
-        <a href="https://pdf-merger-backend.vercel.app/downloads">Download File</a>
+        <a href="https://pdf-merger-backend.vercel.app/download">Download File</a>
         </form>
         </div>
     </>
