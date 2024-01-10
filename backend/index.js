@@ -6,15 +6,19 @@ import PDFMerger from 'pdf-merger-js';
 import fs from 'fs';
 
 const app = express();
+const corsOptions = {
+    origin: ["http://localhost:5173"],
+    credentials: true,
+}
 
 // Enable CORS
-app.use(cors());
+app.use(cors(corsOptions));
 const merger = new PDFMerger();
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, '/tmp/');
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname);
@@ -23,7 +27,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
 
 let lastMergedFilePath ;
 // Define a route for file uploads and merging
@@ -36,7 +39,7 @@ app.post('/', upload.array('files'), async (req, res) => {
 
     const mergedFileName = originalNames + '-' + Date.now() + '.pdf';
     // Merge the PDF files
-    lastMergedFilePath = `uploads/${mergedFileName}`;
+    lastMergedFilePath = `tmp/${mergedFileName}`;
     try {
         for (const path of filePaths) {
             await merger.add(path);
