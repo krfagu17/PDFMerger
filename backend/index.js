@@ -7,14 +7,10 @@ import fs from 'fs';
 
 const app = express();
 
+// Enable CORS
+app.use(cors());
 const merger = new PDFMerger();
 
-// Enable CORS
-app.use(cors({
-    origin: 'http://localhost:5173/', // replace with the domain of your frontend application
-    methods: ['GET', 'POST'], // the methods allowed by CORS
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

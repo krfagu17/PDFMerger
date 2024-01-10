@@ -19,7 +19,7 @@ function App() {
     // console.log(formData.getAll('files'))
 
     try {
-      const response= await axios.post('https://pdf-merger-backend.vercel.app/', formData)
+      const response= await axios.post('https://pdf-merger-backend.vercel.app', formData)
       setpdfData(response.data)
       setMergeStatus(response.data.message)
       
